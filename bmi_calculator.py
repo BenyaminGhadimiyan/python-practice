@@ -1,15 +1,16 @@
 """BMI calculator: weight in kg, height in meters."""
 
 
-def read_positive_number(prompt):
+def read_number_in_range(prompt, minimum, maximum):
+    """Keep asking until the number is greater than minimum and at most maximum."""
     while True:
         try:
             value = float(input(prompt))
-            if value > 0:
+            if minimum < value <= maximum:
                 return value
         except ValueError:
             pass
-        print("Please enter a number greater than 0.")
+        print(f"Please enter a number greater than {minimum} and at most {maximum}.")
 
 
 def get_category(bmi):
@@ -23,8 +24,8 @@ def get_category(bmi):
 
 
 def main():
-    weight = read_positive_number("Enter your weight (kg): ")
-    height = read_positive_number("Enter your height (m, e.g. 1.75): ")
+    weight = read_number_in_range("Enter your weight (kg): ", 0, 500)
+    height = read_number_in_range("Enter your height (m, e.g. 1.75): ", 0, 3)
 
     bmi = weight / (height ** 2)
     print(f"BMI: {bmi:.1f}")
