@@ -17,7 +17,7 @@ def show_menu():
 
 
 def main():
-    order = []
+    order = {}  # item number -> quantity
 
     while True:
         show_menu()
@@ -33,17 +33,20 @@ def main():
             print("This number is not on the menu.")
             continue
 
-        name, price = MENU[choice]
-        order.append((name, price))
-        print(f"{name} added to your order.")
+        order[choice] = order.get(choice, 0) + 1
+        print(f"{MENU[choice][0]} added to your order.")
 
     print("\n--- Your order ---")
     if not order:
         print("No items ordered.")
         return
-    for name, price in order:
-        print(f"{name}: ${price:.2f}")
-    total = sum(price for _, price in order)
+
+    total = 0
+    for number, quantity in order.items():
+        name, price = MENU[number]
+        line_total = price * quantity
+        total += line_total
+        print(f"{quantity} x {name}: ${line_total:.2f}")
     print(f"Total: ${total:.2f}")
 
 
