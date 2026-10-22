@@ -29,6 +29,17 @@ def calculate(num1, num2, operator):
             return None
 
 
+def ask_continue():
+    """Return True to continue, False to exit."""
+    while True:
+        choice = input("Continue = 1, Exit = 0: ").strip()
+        if choice == "1":
+            return True
+        if choice == "0":
+            return False
+        print("Please enter 1 or 0.")
+
+
 def main():
     while True:
         num1 = read_number("Enter the first number: ")
@@ -39,8 +50,7 @@ def main():
         if result is not None:
             print("Result:", result)
 
-        choice = input("Continue = 1, Exit = 0: ").strip()
-        if choice == "0":
+        if not ask_continue():
             break
 
 
