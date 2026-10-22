@@ -14,6 +14,18 @@ def save_to_file(students, filename=OUTPUT_FILE):
             file.write(f"{name} : {score}\n")
 
 
+def read_name(prompt, students):
+    """Keep asking until the name is not empty and not already used."""
+    while True:
+        name = input(prompt).strip()
+        if not name:
+            print("Error! The name cannot be empty.")
+        elif name in students:
+            print("Error! This name has already been entered.")
+        else:
+            return name
+
+
 def read_score():
     """Keep asking until the score is a number between 0 and 20."""
     while True:
@@ -29,7 +41,7 @@ def read_score():
 def main():
     students = {}
     for i in range(1, STUDENT_COUNT + 1):
-        name = input(f"Student {i} name: ")
+        name = read_name(f"Student {i} name: ", students)
         students[name] = read_score()
 
     average = calculate_average(students)
